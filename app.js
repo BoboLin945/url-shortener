@@ -1,3 +1,4 @@
+const { urlencoded } = require('express')
 const express = require('express')
 const exphbs = require('express-handlebars')
 const PORT = 3000
@@ -11,6 +12,9 @@ require('./config/mongoose')
 // view setting
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+// body-parser
+app.use(express.urlencoded({ extended: true }))
 
 // routes setting
 app.use(routes)
