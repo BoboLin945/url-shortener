@@ -11,10 +11,27 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const normalUrl = req.body.normalUrl
   const shortUrl = generateShortUrl(normalUrl)
-  console.log(`${normalUrl}  -> ${shortUrl}`)
+  ShortUrl.create({
+    normalUrl: normalUrl,
+    shortUrl: shortUrl
+  })
   res.redirect('/')
 })
 
+// response normal URL
+router.get('/:shortUrl', (req, res) => {
+  console.log(req.params.shortUrl)
+  ShortUrl.findOne({ shortUrl: req.params.shortUrl })
+    .lean()
+    .then((shortUrl) => {
+      if (!shortUrl) {
+        return res.status(404).send(`Oops! the url is not found!`)
+      } else {
+        const normalURl = shortUrl.normalUrl
+        res.send(`this will be a normal url site, the normal site is ${normalURl}`)
+      }
+    })
+})
 
 
 
@@ -34,7 +51,7 @@ function generateShortUrl(url) {
     const index = Math.floor(Math.random() * collection.length)
     shortUrl += collection[index]
   }
-  return `https://url-shortener.herokuapp.com/${shortUrl}`
+  return `${shortUrl}`
 }
 
 module.exports = router
