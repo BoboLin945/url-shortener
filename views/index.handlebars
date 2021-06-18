@@ -1,12 +1,12 @@
 <div class="index-container">
-  <i class="fas fa-globe index-main-icon"></i>
+  <i class="fas fa-link index-main-icon"></i>
   <form class="needs-validation" novalidate action="/" method="POST">
     <input class="form-control mt-3" type="url" placeholder="Please enter URL..." name="normalUrl" required>
     <div class="invalid-feedback">
       Please enter URL!
     </div>
     <div class="row justify-content-center">
-      <button type="submit" class="btn btn-outline-danger mt-3" id="submit-button">Go!</button>
+      <button type="submit" class="btn btn-danger mt-3" id="submit-button"><i class="fas fa-rocket mr-2"></i>Go!</button>
     </div>
   </form>
 
@@ -19,7 +19,7 @@
     <p>{{message}}</p>
     <div class="d-flex justify-content-between copy-section">
       <input class="form-control short-url-input" type="text" value="{{short}}">
-      <button type="submit" class="btn btn-info copy-button">Copy URL</button>
+      <button type="submit" class="btn btn-info copy-button"><i class="far fa-copy mr-1"></i>Copy URL</button>
     </div>
   </div>
 </div>
