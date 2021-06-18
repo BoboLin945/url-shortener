@@ -3,7 +3,7 @@ const shortUrl = require('../../models/shortUrl')
 const router = express.Router()
 const ShortUrl = require('../../models/shortUrl')
 
-const URL = 'http://localhost:3000/'
+const URL = 'https://lit-refuge-27029.herokuapp.com/' || 'http://localhost:3000/'
 
 // index 
 router.get('/', (req, res) => {
