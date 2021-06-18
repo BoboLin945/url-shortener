@@ -34,7 +34,8 @@ router.post('/', (req, res) => {
         shortUrl: short,
       })
       short = URL + short
-      res.render('index', {long, short})
+      let message = `Success! Please use this link :`
+      res.render('index', { long, short, message })
     }))
     .catch(error => console.log(error))
 })
@@ -42,8 +43,8 @@ router.post('/', (req, res) => {
 
 // response normal URL
 router.get('/:shortUrl', (req, res) => {
-  // console.log(req.params.shortUrl)
-  ShortUrl.findOne({ shortUrl: req.params.shortUrl })
+  const short = req.params.shortUrl
+  ShortUrl.findOne({ shortUrl: short })
     .lean()
     .then((shortUrl) => {
       if (!shortUrl) {
@@ -51,7 +52,6 @@ router.get('/:shortUrl', (req, res) => {
       } else {
         const normalUrl = shortUrl.normalUrl
         res.redirect(`${normalUrl}`)
-        // res.send(`this will be a normal url site, the normal site is ${normalURl}`)
       }
     })
     .catch(error => console.log(error))
