@@ -17,9 +17,9 @@
   <div class="short-url mt-3">
     <p class="mt-3 text-center">Short URL</p>
     <p>{{message}}</p>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between copy-section">
       <input class="form-control short-url-input" type="text" value="{{short}}">
-      <button type="submit" class="btn btn-info" id="copy-button">Copy URL</button>
+      <button type="submit" class="btn btn-info copy-button">Copy URL</button>
     </div>
   </div>
 </div>
@@ -43,4 +43,18 @@
       });
     }, false);
   })();
+
+  // copy url
+  const copySection = document.querySelector('.copy-section')
+  const url = document.querySelector('.short-url-input')
+  copySection.addEventListener('click', function() {
+    if(event.target.classList.contains('copy-button')) {
+      let copyUrl = url.value
+      url.focus();
+      url.select();
+      document.execCommand('copy');
+      alert('URL is already copied!')
+    }
+  })
+  
 </script>
