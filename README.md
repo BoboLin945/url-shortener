@@ -2,7 +2,7 @@
 ## :globe_with_meridians: URL Shortener
 
 :moyai:
-You can see on [heroku]()
+You can see on [heroku](http://lit-refuge-27029.herokuapp.com/)
 
 ### :card_file_box: Features
 
@@ -18,7 +18,7 @@ You can see on [heroku]()
 
 #### Clone repository
 ```
-$ git clone 
+$ git clone https://github.com/BoboLin945/url-shortener.git
 ```
 #### Install by npm
 ```
