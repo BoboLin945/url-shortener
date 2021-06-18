@@ -16,6 +16,9 @@ app.set('view engine', 'handlebars')
 // body-parser
 app.use(express.urlencoded({ extended: true }))
 
+// static files
+app.use(express.static('public'))
+
 // routes setting
 app.use(routes)
 
