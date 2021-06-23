@@ -1,5 +1,4 @@
 const express = require('express')
-const shortUrl = require('../../models/shortUrl')
 const router = express.Router()
 const ShortUrl = require('../../models/shortUrl')
 
@@ -14,32 +13,17 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   // get user's url
   const long = req.body.normalUrl
-  ShortUrl.find()
-    .lean()
-    .then(((shortUrls) => {
-      // create short uel
-      let short = generateShortUrl()
-      // check short url is exist
-      let isExist = true
-      while (isExist) {
-        let existShortUrl = shortUrls.find((shortUrl => shortUrl.shortUrl === short))
-        if (existShortUrl) {
-          isExist = true
-          short = generateShortUrl()
-        } else { isExist = false }
-      }
-      // create data
-      ShortUrl.create({
-        normalUrl: long,
-        shortUrl: short,
-      })
-      short = URL + short
-      let message = `Success! Please use this link :`
-      res.render('index', { long, short, message })
-    }))
-    .catch(error => console.log(error))
+  // create short uel
+  let short = generateShortUrl()
+  // create data
+  ShortUrl.create({
+    normalUrl: long,
+    shortUrl: short,
+  })
+  short = URL + short
+  let message = `Success! Please use this link :`
+  res.render('index', { long, short, message })
 })
-
 
 // response normal URL
 router.get('/:shortUrl', (req, res) => {
@@ -73,7 +57,29 @@ function generateShortUrl() {
     const index = Math.floor(Math.random() * collection.length)
     shortUrl += collection[index]
   }
+
+  // check short url is exist
+  isExist(shortUrl)
+
   return `${shortUrl}`
+}
+
+// check short url is exist
+function isExist(shortUrl) {
+  let isExist = true
+  ShortUrl.find({ shortUrl: shortUrl })
+    .lean()
+    .then((shortUrls) => {
+      while (isExist) {
+        if (shortUrls.length > 0) {
+          isExist = true
+          generateShortUrl()
+        } else {
+          isExist = false
+          return
+        }
+      }
+    })
 }
 
 module.exports = router
